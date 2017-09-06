@@ -17,4 +17,4 @@ RUN chmod a+x /app/run.sh
 
 RUN /app/pttg_init.sh
 
-ENTRYPOINT /app/run.sh
+ENTRYPOINT /app/pttg_init.sh

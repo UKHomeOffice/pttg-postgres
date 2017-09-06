@@ -1,4 +1,4 @@
-
+#!/usr/bin/env bash
 export PGPASSWORD=${ROOT_DB_PASSWORD}
 
 
@@ -11,4 +11,6 @@ create user pttg with password 'pttg';
 
 grant all privileges on SCHEMA pttg_ip_dummy to pttg;
 EOF
+
+tail -f /dev/null
 
