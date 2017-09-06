@@ -11,8 +11,10 @@ RUN groupadd -r ${GROUP} && \
     chown -R ${USER}:${GROUP} /app
 
 COPY run.sh /app
-COPY pttg_init.sh /docker-entrypoint-initdb.d/
+COPY pttg_init.sh /app
 
 RUN chmod a+x /app/run.sh
+
+RUN /app/pttg_init.sh
 
 ENTRYPOINT /app/run.sh
