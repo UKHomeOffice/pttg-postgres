@@ -23,19 +23,19 @@ pipeline:
       branch: master
       event: push
 
-   tag-latest-docker-image:
-      image: docker:1.11
-      environment:
-        - DOCKER_HOST=tcp://127.0.0.1:2375
-      commands:
-        - docker login -u="ukhomeofficedigital+pttg" -p=${DOCKER_PASSWORD} quay.io
-        - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:latest
-        - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:build-${DRONE_BUILD_NUMBER}
-        - docker push quay.io/ukhomeofficedigital/pttg-postgres:latest
-        - docker push quay.io/ukhomeofficedigital/pttg-postgres:build-${DRONE_BUILD_NUMBER}
-      when:
-        branch: master
-        event: push
+  tag-latest-docker-image:
+    image: docker:1.11
+    environment:
+      - DOCKER_HOST=tcp://127.0.0.1:2375
+    commands:
+      - docker login -u="ukhomeofficedigital+pttg" -p=${DOCKER_PASSWORD} quay.io
+      - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:latest
+      - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:build-${DRONE_BUILD_NUMBER}
+      - docker push quay.io/ukhomeofficedigital/pttg-postgres:latest
+      - docker push quay.io/ukhomeofficedigital/pttg-postgres:build-${DRONE_BUILD_NUMBER}
+    when:
+      branch: master
+      event: push
   
   tag-docker-image-with-git-tag:
     image: docker:1.11
