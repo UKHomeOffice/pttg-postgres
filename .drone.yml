@@ -22,8 +22,7 @@ pipeline:
     when:
       branch: master
       event: push
-      
-      
+
    tag-latest-docker-image:
       image: docker:1.11
       environment:
