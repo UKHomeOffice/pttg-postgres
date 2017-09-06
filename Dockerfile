@@ -15,6 +15,4 @@ COPY pttg_init.sh /app
 
 RUN chmod a+x /app/run.sh
 
-RUN /app/pttg_init.sh
-
 ENTRYPOINT /app/pttg_init.sh
