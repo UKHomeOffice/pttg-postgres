@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-if [ "$MODE" -eq "bootstrap" ] ; then
+if [ "$MODE" == "bootstrap" ] ; then
 
-# check the use of this
     export PGPASSWORD=${ROOT_DB_PASSWORD}
-
 
     psql -h${PTTG_DB_HOSTNAME} -Uroot -d${PTTG_DB_NAME} << EOF
 
@@ -12,6 +10,7 @@ if [ "$MODE" -eq "bootstrap" ] ; then
         CREATE USER pttg_user WITH PASSWORD '${IP_DB_PASSWORD}';
         GRANT ALL PRIVILEGES ON SCHEMA pttg_schema TO pttg_user;
 
+# replace above lines with these ...
         # CREATE SCHEMA IF NOT EXISTS ${IP_SCHEMA_NAME};
         # CREATE USER ${IP_DB_USERNAME} WITH PASSWORD '${IP_DB_PASSWORD}';
         # GRANT ALL PRIVILEGES ON SCHEMA ${IP_SCHEMA_NAME} TO ${IP_DB_USERNAME};
