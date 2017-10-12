@@ -6,6 +6,8 @@ if [ "$MODE" == "bootstrap" ] ; then
 
     psql -h${PTTG_DB_HOSTNAME} -Uroot -dpostgres -tc "SELECT 1 FROM pg_database WHERE datname = '${HMRC_AC_DB_NAME}'" | grep -q 1 || psql -h${PTTG_DB_HOSTNAME} -Uroot -dpostgres -c "CREATE DATABASE ${HMRC_AC_DB_NAME}"
 
+    echo 'After creation of HMRC db'
+
     psql -h${PTTG_DB_HOSTNAME} -Uroot -d${PTTG_DB_NAME} << EOFA
 
         CREATE SCHEMA IF NOT EXISTS ${IP_SCHEMA_NAME};
@@ -17,6 +19,12 @@ if [ "$MODE" == "bootstrap" ] ; then
 
 EOFA
 
+    echo 'before hmrc schema creation'
+    echo ${HMRC_AC_DB_NAME}
+    echo ${HMRC_AC_DB_SCHEMA_NAME}
+    echo ${HMRC_AC_DB_USERNAME}
+    echo ${HMRC_AC_DB_PASSWORD}
+
     psql -h${PTTG_DB_HOSTNAME} -Uroot -d${HMRC_AC_DB_NAME} << EOFB
 
         CREATE SCHEMA IF NOT EXISTS ${HMRC_AC_DB_SCHEMA_NAME};
@@ -25,6 +33,7 @@ EOFA
         GRANT ALL PRIVILEGES ON SCHEMA ${HMRC_AC_DB_SCHEMA_NAME} TO ${HMRC_AC_DB_USERNAME};
 
 EOFB
+    echo 'after hmrc schema creation'
 
     export PGPASSWORD=${IP_DB_PASSWORD}
 
