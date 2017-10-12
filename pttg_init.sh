@@ -4,6 +4,8 @@ if [ "$MODE" == "bootstrap" ] ; then
 
     export PGPASSWORD=${ROOT_DB_PASSWORD}
 
+    psql -h${PTTG_DB_HOSTNAME} -Uroot -tc "SELECT 1 FROM pg_database WHERE datname = 'RPS_AC_DB'" | grep -q 1 || psql -Uroot -c "CREATE DATABASE RPS_AC_DB"
+
     psql -h${PTTG_DB_HOSTNAME} -Uroot -d${PTTG_DB_NAME} << EOFA
 
         CREATE SCHEMA IF NOT EXISTS ${IP_SCHEMA_NAME};
@@ -13,9 +15,7 @@ if [ "$MODE" == "bootstrap" ] ; then
 
         CREATE USER ${IP_DB_QUERY_USERNAME} WITH PASSWORD '${IP_DB_QUERY_PASSWORD}';
 
-        GRANT USAGE ON SCHEMA ${IP_SCHEMA_NAME} TO ${IP_DB_QUERY_USERNAME};
 EOFA
-
 
     export PGPASSWORD=${IP_DB_PASSWORD}
 
