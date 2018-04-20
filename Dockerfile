@@ -1,5 +1,8 @@
 FROM postgres
 
+ENV USER pttg
+ENV GROUP pttg
+
 WORKDIR /app
 
 RUN mkdir -p /app
