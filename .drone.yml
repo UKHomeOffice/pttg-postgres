@@ -36,7 +36,7 @@ pipeline:
       - docker push quay.io/ukhomeofficedigital/pttg-postgres:$${DRONE_TAG}
     when:
       event: tag
-  
+
   clone-kube-project:
     image: plugins/git
     commands:
