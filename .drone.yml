@@ -7,7 +7,7 @@ pipeline:
     commands:
       - docker build -t pttg-postgres .
     when:
-      branch: [master, refs/tags/*]
+      branch: [master, refs/tags/*, EE-12559-start-rds]
       event: [push, tag]
 
   install-docker-image:
@@ -21,7 +21,7 @@ pipeline:
       - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:build-$${DRONE_BUILD_NUMBER}
       - docker push quay.io/ukhomeofficedigital/pttg-postgres:build-$${DRONE_BUILD_NUMBER}
     when:
-      branch: master
+      branch: []master, EE-12559-start-rds]
       event: push
 
   tag-docker-image-with-git-tag:
