@@ -41,6 +41,9 @@ pipeline:
     image: plugins/git
     commands:
       - git clone https://github.com/UKHomeOffice/kube-pttg-postgres.git
+      - cd kube-pttg-postgres
+      - git checkout EE-12559-start-rds
+      - cd ..
     when:
       event: [push, tag, deployment]
 
