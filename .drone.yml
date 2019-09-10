@@ -21,7 +21,7 @@ pipeline:
       - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:build-$${DRONE_BUILD_NUMBER}
       - docker push quay.io/ukhomeofficedigital/pttg-postgres:build-$${DRONE_BUILD_NUMBER}
     when:
-      branch: []master, EE-12559-start-rds]
+      branch: [master, EE-12559-start-rds]
       event: push
 
   tag-docker-image-with-git-tag:
