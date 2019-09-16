@@ -13,6 +13,6 @@ RUN groupadd -r ${GROUP} && \
 
 COPY pttg_init.sh /app
 
-USER ${USER_ID}
+USER  ${USER_ID}
 
 ENTRYPOINT /app/pttg_init.sh
