@@ -57,12 +57,12 @@ pipeline:
       - docker_password
     commands:
       - docker login -u="ukhomeofficedigital+pttg" -p=$${DOCKER_PASSWORD} quay.io
-      - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:latest
-      - docker push quay.io/ukhomeofficedigital/pttg-postgres:latest
+#      - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:latest
+#      - docker push quay.io/ukhomeofficedigital/pttg-postgres:latest
       - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:build-$${DRONE_BUILD_NUMBER}
       - docker push quay.io/ukhomeofficedigital/pttg-postgres:build-$${DRONE_BUILD_NUMBER}
-      - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:$(cat ./tagSemver)
-      - docker push quay.io/ukhomeofficedigital/pttg-postgres:$(cat ./tagSemver)
+#      - docker tag pttg-postgres quay.io/ukhomeofficedigital/pttg-postgres:$(cat ./tagSemver)
+#      - docker push quay.io/ukhomeofficedigital/pttg-postgres:$(cat ./tagSemver)
     when:
 #      branch: master
       event: push
