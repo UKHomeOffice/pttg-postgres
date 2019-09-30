@@ -100,7 +100,7 @@ pipeline:
     commands:
       - git clone https://github.com/UKHomeOffice/kube-pttg-postgres.git
       - cd kube-pttg-postgres
-      - git checkout EE-12559-start-rds
+      - git checkout EE-12559-test
       - cd ..
     when:
       event: [push, deployment, tag]
@@ -118,7 +118,7 @@ pipeline:
       - cd kube-pttg-postgres
       - ./deploy.sh
     when:
-      branch: [master, EE-12559-start-rds]
+      branch: [master, EE-12559-test]
       event: [push, tag]
 
   deployment-to-non-prod:
