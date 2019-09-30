@@ -118,7 +118,7 @@ pipeline:
       - cd kube-pttg-postgres
       - ./deploy.sh
     when:
-      branch: [master]
+      branch: [master, EE-12559-allow-test-kube]
       event: [push, tag]
 
   deployment-to-non-prod:
