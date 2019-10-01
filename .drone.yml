@@ -101,7 +101,7 @@ pipeline:
       - git clone https://github.com/UKHomeOffice/kube-pttg-postgres.git
       - cd kube-pttg-postgres
 # test kube branch
-      - git checkout EE-12559-start-rds
+      - git checkout EE-26876-check-env-vars
       - cd ..
     when:
       event: [push, deployment, tag]
