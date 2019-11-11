@@ -12,6 +12,7 @@ RUN groupadd -r ${GROUP} && \
     chown -R ${USER}:${GROUP} /app
 
 COPY pttg_init.sh /app
+COPY rds-combined-ca-bundle.pem /app
 
 USER ${USER_ID}
 
