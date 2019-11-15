@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 
+db_params() {
+    echo "dbname=$1 user=$2 sslrootcert=rds-combined-ca-bundle.pem sslmode=verify-ca"
+}
+
 if [ "$MODE" == "bootstrap" ] ; then
 
     export PGPASSWORD=${ROOT_DB_PASSWORD}
 
 
-    psql -h${PTTG_DB_HOSTNAME} -Uroot -dpostgres -tc "SELECT 1 FROM pg_database WHERE datname = '${HMRC_AC_DB_NAME}'" | grep -q 1 || psql -h${PTTG_DB_HOSTNAME} -Uroot -dpostgres -c "CREATE DATABASE ${HMRC_AC_DB_NAME}"
+    psql -h${PTTG_DB_HOSTNAME} "$(db_params postgres root)" -tc "SELECT 1 FROM pg_database WHERE datname = '${HMRC_AC_DB_NAME}'" | grep -q 1 || psql -h${PTTG_DB_HOSTNAME} "$(db_params postgres root)" -c "CREATE DATABASE ${HMRC_AC_DB_NAME}"
 
-    psql -h${PTTG_DB_HOSTNAME} -Uroot -d${HMRC_AC_DB_NAME} << EOFA
+    psql -h${PTTG_DB_HOSTNAME} "$(db_params ${HMRC_AC_DB_NAME} root)" << EOFA
 
         CREATE SCHEMA IF NOT EXISTS ${HMRC_AC_DB_SCHEMA_NAME};
 
@@ -17,9 +21,9 @@ EOFA
 
 
 
-    psql -h${PTTG_DB_HOSTNAME} -Uroot -dpostgres -tc "SELECT 1 FROM pg_database WHERE datname = '${PTTG_DB_NAME}'" | grep -q 1 || psql -h${PTTG_DB_HOSTNAME} -Uroot -dpostgres -c "CREATE DATABASE ${PTTG_DB_NAME}"
+    psql -h${PTTG_DB_HOSTNAME} "$(db_params postgres root)" -tc "SELECT 1 FROM pg_database WHERE datname = '${PTTG_DB_NAME}'" | grep -q 1 || psql -h${PTTG_DB_HOSTNAME} "$(db_params postgres root)" -c "CREATE DATABASE ${PTTG_DB_NAME}"
 
-    psql -h${PTTG_DB_HOSTNAME} -Uroot -d${PTTG_DB_NAME} << EOFB
+    psql -h${PTTG_DB_HOSTNAME} "$(db_params ${PTTG_DB_NAME} root)" << EOFB
 
         CREATE SCHEMA IF NOT EXISTS ${IP_SCHEMA_NAME};
 
@@ -34,7 +38,7 @@ EOFB
     export PGPASSWORD=${IP_DB_PASSWORD}
 
 
-    psql -h${PTTG_DB_HOSTNAME} -U${IP_DB_USERNAME} -d${PTTG_DB_NAME} << EOFC
+    psql -h${PTTG_DB_HOSTNAME} "$(db_params ${PTTG_DB_NAME} ${IP_DB_USERNAME})" << EOFC
 
         GRANT SELECT ON ALL TABLES IN SCHEMA ${IP_SCHEMA_NAME} TO ${IP_DB_QUERY_USERNAME};
         GRANT SELECT ON ALL SEQUENCES IN SCHEMA ${IP_SCHEMA_NAME} TO ${IP_DB_QUERY_USERNAME};
